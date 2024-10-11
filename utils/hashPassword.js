@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
-const hashPassword = (password) => {
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
+const hashPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10); // Asynchronously generate salt
+    return await bcrypt.hash(password, salt); // Asynchronously hash the password
 };
 
 export default hashPassword;

@@ -8,7 +8,14 @@ import cookieParser from 'cookie-parser';
 // import middlewares
 import logger from './middleware/logger.js';
 
+
 // import routes
+import userRoutes from './routes/user.js';
+import flightRoutes from './routes/flight.js';
+
+// import tables
+import createUsersTable from './models/user.js';
+import createFlightsTable from './models/flight.js';
 
 // load environment variables
 dotenv.config();
@@ -36,7 +43,13 @@ app.set('views', path.join(PATH, 'views'));
 // use middlewares
 app.use(logger);
 
+// use tables
+createFlightsTable();
+createUsersTable();
+
 // use routes
+app.use('/api', userRoutes);
+app.use('/api', flightRoutes);
 
 // handle 404
 app.use('*', (req, res) => {
